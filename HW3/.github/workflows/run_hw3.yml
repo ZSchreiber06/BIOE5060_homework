@@ -67,9 +67,6 @@ jobs:
           else
             make release
           fi
-
-
- jobs:
   Q2:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
     name: Build/test Q2   # name of job 1
     strategy:
