@@ -67,6 +67,9 @@ jobs:
           else
             make release
           fi
+
+###############################
+
   Q2:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
     name: Build/test Q2   # name of job 1
     strategy:
@@ -125,12 +128,120 @@ jobs:
             make release
           fi
 
-         
-
-
-
-
-
-   
+#########################
+  Q3:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
+      name: Build/test Q3   # name of job 1
+      strategy:
+        matrix:                     # build and test on 4 OSes provided by github
+          os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
+      runs-on: ${{ matrix.os }}
+      BIOE5060_homework/HW3/Q3
+      
+      defaults:                     # forcing each OS to use bash as default
+        run:
+          shell: bash
+      steps:                        # each job is made of steps
+        - name: Checkout repo       # each step has a name, and a bunch of commands
+          uses: actions/checkout@v3
+          with:
+            submodules: 'recursive'
+        - name: Install dependencies (Linux only)
+          if: ${{ runner.os == 'Linux' }}   # use these variables to limit a step only on a specific OS
+          run: |
+            sudo apt-get update && sudo apt-get install -y gcc
+        - name: Install dependencies (MacOS only)
+          if: ${{ runner.os == 'macOS' }}
+          run: |
+            brew install gcc@12
+        - name: Setting up C compiler CC (Windows only) # specifically set CC for Windows, as Windows default does not set cc to gcc
+          if: ${{ runner.os == 'Windows' }}
+          run: |
+            echo 'CC=gcc' >> $GITHUB_ENV   # using this to change/add environment variables, here we set C compiler on windows as gcc
+        - name: Build program (debug mode) # build software
+          run: |
+            cd Q3
+            make clean
+            #make all    ## uncomment this line also works if the windows-only step for CC setting is added
+            if [ "$RUNNER_OS" == "Windows" ]; then  # you can also use shell env variable to test OS/version in the run-script
+              make all CC=gcc
+            else
+              make all
+            fi
+        - name: Test program (non Windows) # run tests
+          if: ${{ runner.os != 'Windows' }}
+          run: |
+            cd Q3
+            make test
+        - name: Test program (Windows only)
+          if: ${{ runner.os == 'Windows' }}
+          run: |
+            cd Q3
+            make test CC=gcc
+        - name: Build program in release mode   # you can rebuild the programs in other options, or compilers and further test
+          run: |
+            cd Q3
+            make clean
+            if [ "$RUNNER_OS" == "Windows" ]; then
+              make release CC=gcc
+            else
+              make release
+            fi         
+  Q4:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
+    name: Build/test Q4   # name of job 1
+    strategy:
+      matrix:                     # build and test on 4 OSes provided by github
+        os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
+    runs-on: ${{ matrix.os }}
+    BIOE5060_homework/HW3/Q4
+    
+    defaults:                     # forcing each OS to use bash as default
+      run:
+        shell: bash
+    steps:                        # each job is made of steps
+      - name: Checkout repo       # each step has a name, and a bunch of commands
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+      - name: Install dependencies (Linux only)
+        if: ${{ runner.os == 'Linux' }}   # use these variables to limit a step only on a specific OS
+        run: |
+          sudo apt-get update && sudo apt-get install -y gcc
+      - name: Install dependencies (MacOS only)
+        if: ${{ runner.os == 'macOS' }}
+        run: |
+          brew install gcc@12
+      - name: Setting up C compiler CC (Windows only) # specifically set CC for Windows, as Windows default does not set cc to gcc
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          echo 'CC=gcc' >> $GITHUB_ENV   # using this to change/add environment variables, here we set C compiler on windows as gcc
+      - name: Build program (debug mode) # build software
+        run: |
+          cd Q4
+          make clean
+          #make all    ## uncomment this line also works if the windows-only step for CC setting is added
+          if [ "$RUNNER_OS" == "Windows" ]; then  # you can also use shell env variable to test OS/version in the run-script
+            make all CC=gcc
+          else
+            make all
+          fi
+      - name: Test program (non Windows) # run tests
+        if: ${{ runner.os != 'Windows' }}
+        run: |
+          cd Q4
+          make test
+      - name: Test program (Windows only)
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          cd Q4
+          make test CC=gcc
+      - name: Build program in release mode   # you can rebuild the programs in other options, or compilers and further test
+        run: |
+          cd Q4
+          make clean
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            make release CC=gcc
+          else
+            make release
+          fi
 
 
