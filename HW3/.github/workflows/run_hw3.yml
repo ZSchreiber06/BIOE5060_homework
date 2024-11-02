@@ -2,12 +2,12 @@ name: test_all_units
 on:
   push:
     branches:
-      - main
+      - branch1
     tags:
       - '*'
   pull_request:
     branches:
-      - main
+      - branch1
 
 jobs:
   Q1:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
