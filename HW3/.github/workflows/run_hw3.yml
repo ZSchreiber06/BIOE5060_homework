@@ -235,5 +235,3 @@ jobs:
           else
             make release
           fi
-
-
