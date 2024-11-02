@@ -237,3 +237,5 @@ jobs:
           else
             make release
           fi
+          
+yamllint run_test.yml
