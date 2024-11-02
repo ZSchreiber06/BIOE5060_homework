@@ -237,5 +237,3 @@ jobs:
           else
             make release
           fi
-          
-yamllint run_hw3.yml
