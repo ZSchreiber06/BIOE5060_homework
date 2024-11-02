@@ -65,6 +65,32 @@ jobs:
           else
             make release
           fi
+      - name: Create package folder  # once compiled, you can create a release package and upload to github or your own server
+        run: |
+          mkdir -p packages
+          cp HW3/whileloop packages
+      - name: Create release tag     # create packages for different OSes
+        run: perl -e "print 'RELEASE_TAG='. lc('${{ runner.os }}-${{ runner.arch }}-github-latest')" >> $GITHUB_ENV
+      - name: Zip package
+        run: |
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            7z a -tzip packages/whileloop-${{ env.RELEASE_TAG }}.zip packages/whileloop.exe
+          else
+            zip -FSr --symlink packages/whileloop-${{ env.RELEASE_TAG }}.zip packages/whileloop
+          fi
+      - name: Upload package
+        if: ${{ matrix.os == 'ubuntu-22.04' || matrix.os == 'macos-12' || matrix.os == 'windows-2019' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: all-unit-packages
+          path: packages/whileloop-${{ env.RELEASE_TAG }}.zip
+
+
+
+
+
+
+          
 
 ###############################
 
