@@ -2,12 +2,12 @@ name: test_all_units
 on:
   push:
     branches:
-      - branch1
+      - main
     tags:
       - '*'
   pull_request:
     branches:
-      - branch1
+      - main
 
 jobs:
   Q1:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
@@ -179,7 +179,9 @@ jobs:
               make release CC=gcc
             else
               make release
-            fi         
+            fi    
+
+#################################               
   Q4:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
     name: Build/test Q4   # name of job 1
     strategy:
@@ -235,3 +237,5 @@ jobs:
           else
             make release
           fi
+
+
