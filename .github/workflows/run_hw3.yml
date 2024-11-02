@@ -16,8 +16,6 @@ jobs:
       matrix:                     # build and test on 4 OSes provided by github
         os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
     runs-on: ${{ matrix.os }}
-    BIOE5060_homework/HW3/Q1
-    
     defaults:                     # forcing each OS to use bash as default
       run:
         shell: bash
@@ -76,8 +74,6 @@ jobs:
       matrix:                     # build and test on 4 OSes provided by github
         os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
     runs-on: ${{ matrix.os }}
-    BIOE5060_homework/HW3/Q2
-    
     defaults:                     # forcing each OS to use bash as default
       run:
         shell: bash
@@ -135,8 +131,6 @@ jobs:
         matrix:                     # build and test on 4 OSes provided by github
           os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
       runs-on: ${{ matrix.os }}
-      BIOE5060_homework/HW3/Q3
-      
       defaults:                     # forcing each OS to use bash as default
         run:
           shell: bash
@@ -192,8 +186,6 @@ jobs:
       matrix:                     # build and test on 4 OSes provided by github
         os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
     runs-on: ${{ matrix.os }}
-    BIOE5060_homework/HW3/Q4
-    
     defaults:                     # forcing each OS to use bash as default
       run:
         shell: bash
