@@ -37,7 +37,7 @@ jobs:
           echo 'CC=gcc' >> $GITHUB_ENV
       - name: Build program (debug mode)
         run: |
-          cd HW3
+          cd HW3/Q1
           make clean
           #make all    ## uncomment this line also works if the windows-only step for CC setting is added
           if [ "$RUNNER_OS" == "Windows" ]; then
@@ -48,16 +48,16 @@ jobs:
       - name: Test program (non Windows) # run tests
         if: ${{ runner.os != 'Windows' }}
         run: |
-          cd HW3
+          cd HW3/Q1
           make test
       - name: Test program (Windows only)
         if: ${{ runner.os == 'Windows' }}
         run: |
-          cd HW3
+          cd HW3/Q1
           make test CC=gcc
       - name: Build program in release mode
         run: |
-          cd HW3
+          cd HW3/Q1
           make clean
           if [ "$RUNNER_OS" == "Windows" ]; then
             make release CC=gcc
