@@ -14,53 +14,53 @@ jobs:
     strategy:
       matrix: 
         os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
-      runs-on: ${{ matrix.os }}
-      defaults:
-        run:
-          shell: bash
-      steps:
-        - name: Checkout repo
-          uses: actions/checkout@v3
-          with:
-            submodules: 'recursive'
-        - name: Install dependencies (Linux only)
-          if: ${{ runner.os == 'Linux' }}
-          run: |
-            sudo apt-get update && sudo apt-get install -y gcc
-        - name: Install dependencies (MacOS only)
-          if: ${{ runner.os == 'macOS' }}
-          run: |
-            brew install gcc@12
-        - name: Setting up C compiler CC (Windows only)
-          if: ${{ runner.os == 'Windows' }}
-          run: |
-            echo 'CC=gcc' >> $GITHUB_ENV
-        - name: Build program (debug mode)
-          run: |
-            cd HW3/Q1
-            make clean
-            #make all    ## uncomment this line also works if the windows-only step for CC setting is added
-            if [ "$RUNNER_OS" == "Windows" ]; then
-              make all CC=gcc
-            else
-              make all
-            fi
-        - name: Test program (non Windows) # run tests
-          if: ${{ runner.os != 'Windows' }}
-          run: |
-            cd HW3/Q1
-            make test
-        - name: Test program (Windows only)
-          if: ${{ runner.os == 'Windows' }}
-          run: |
-            cd HW3/Q1
-            make test CC=gcc
-        - name: Build program in release mode
-          run: |
-            cd HW3/Q1
-            make clean
-            if [ "$RUNNER_OS" == "Windows" ]; then
-              make release CC=gcc
-            else
-              make release
-            fi
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
+      - name: Install dependencies (Linux only)
+        if: ${{ runner.os == 'Linux' }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y gcc
+      - name: Install dependencies (MacOS only)
+        if: ${{ runner.os == 'macOS' }}
+        run: |
+          brew install gcc@12
+      - name: Setting up C compiler CC (Windows only)
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          echo 'CC=gcc' >> $GITHUB_ENV
+      - name: Build program (debug mode)
+        run: |
+          cd HW3/Q1
+          make clean
+          #make all    ## uncomment this line also works if the windows-only step for CC setting is added
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            make all CC=gcc
+          else
+            make all
+          fi
+      - name: Test program (non Windows) # run tests
+        if: ${{ runner.os != 'Windows' }}
+        run: |
+          cd HW3/Q1
+          make test
+      - name: Test program (Windows only)
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          cd HW3/Q1
+          make test CC=gcc
+      - name: Build program in release mode
+        run: |
+          cd HW3/Q1
+          make clean
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            make release CC=gcc
+          else
+            make release
+          fi
