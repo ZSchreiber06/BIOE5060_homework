@@ -8,7 +8,6 @@ on:
   pull_request:
     branches:
       - branch1
-
 jobs:
   Q1:                      
     name: Build/test Q1    
