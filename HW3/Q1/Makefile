@@ -3,7 +3,7 @@ for:
 while:
 	gcc whileloop.c -o whileloop -g -Wall -pedantic
 for.txt: for
- 	./forloop > for.txt
+	./forloop > for.txt
 while.txt: while
 	./whileloop > while.txt
 test: for.txt while.txt
