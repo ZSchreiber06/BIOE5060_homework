@@ -1,4 +1,3 @@
-
 for:
 	gcc forloop.c -o forloop -g -Wall -pedantic
 while:
