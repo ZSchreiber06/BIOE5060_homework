@@ -33,18 +33,18 @@ jobs:
           cd HW3/Q1
           make test
   Q2: 
-    name: Build/test Q2
+    name: Build/test Q2   
     strategy:
-      matrix:
+      matrix:                     
         os: [ubuntu-22.04]
-      runs-on: ${{ matrix.os }}
-      defaults:
-        run:
-          shell: bash
-    steps: 
-      - name: Checkout repo
+    runs-on: ${{ matrix.os }}
+    defaults:                 
+      run:
+        shell: bash
+    steps:                       
+      - name: Checkout repo       
         uses: actions/checkout@v3
-        with: 
+        with:
           submodules: 'recursive'
       - name: Install dependencies (Linux only)
         if: ${{ runner.os == 'Linux' }}   # use these variables to limit a step only on a specific OS
@@ -52,5 +52,6 @@ jobs:
           sudo apt-get update && sudo apt-get install -y gcc
       - name: Build/Test
         run: |
-          cd HW3/Q2
-          make test   
+          cd HW3/Q1
+          make test
+ 
