@@ -1,5 +1,5 @@
 fizzbuzz:
-	gcc fizzbuzz.c -x fizzbuzz - g -Wall -pedantic
+	gcc fizzbuzz.c -o fizzbuzz
 fizzbuzz.txt: fizzbuzz
 	./fizzbuzz > fizzbuzz.txt
 test: fizzbuzz.txt
