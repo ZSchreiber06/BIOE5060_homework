@@ -31,8 +31,7 @@ jobs:
       - name: Build program (debug mode) # build software
         run: |
           cd HW3/Q1
-          make clean
-          #make all    ## uncomment this line also works if the windows-only step for CC setting is added
+          # make clean
           if [ "$RUNNER_OS" == "Windows" ]; then  # you can also use shell env variable to test OS/version in the run-script
             make all CC=gcc
           else
