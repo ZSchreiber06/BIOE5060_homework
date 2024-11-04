@@ -31,12 +31,7 @@ jobs:
       - name: Build program (debug mode) # build software
         run: |
           cd HW3/Q1
-          # make clean
-          if [ "$RUNNER_OS" == "Windows" ]; then  # you can also use shell env variable to test OS/version in the run-script
-            make all CC=gcc
-          else
-            make all
-          fi
+          make for 
       - name: Test program (non Windows) # run tests
         if: ${{ runner.os != 'Windows' }}
         run: |
