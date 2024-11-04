@@ -10,17 +10,17 @@ on:
       - branch1
 
 jobs:
-  Q1:
-    name: Build/test Q1
+  Q1:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
+    name: Build/test Q1    # name of job 1
     strategy:
-      matrix:
+      matrix:                     # build and test on 4 OSes provided by github
         os: [ubuntu-22.04, macos-12, macos-14, windows-2019]
     runs-on: ${{ matrix.os }}
-    defaults:
+    defaults:                     # forcing each OS to use bash as default
       run:
         shell: bash
-    steps:
-      - name: Checkout repo
+    steps:                        # each job is made of steps
+      - name: Checkout repo       # each step has a name, and a bunch of commands
         uses: actions/checkout@v3
         with:
           submodules: 'recursive'
