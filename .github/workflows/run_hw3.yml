@@ -10,17 +10,17 @@ on:
       - branch1
 
 jobs:
-  Q1:                       # job 1: build and test the code; you can have additional jobs to upload/deploy
-    name: Build/test Q1    # name of job 1
+  Q1:                       
+    name: Build/test Q1    
     strategy:
-      matrix:                     # build and test on 4 OSes provided by github
+      matrix:                     
         os: [ubuntu-22.04]
     runs-on: ${{ matrix.os }}
-    defaults:                     # forcing each OS to use bash as default
+    defaults:                 
       run:
         shell: bash
-    steps:                        # each job is made of steps
-      - name: Checkout repo       # each step has a name, and a bunch of commands
+    steps:                       
+      - name: Checkout repo       
         uses: actions/checkout@v3
         with:
           submodules: 'recursive'
@@ -28,9 +28,29 @@ jobs:
         if: ${{ runner.os == 'Linux' }}   # use these variables to limit a step only on a specific OS
         run: |
           sudo apt-get update && sudo apt-get install -y gcc
-      - name: Build program (debug mode) # build software
+      - name: Build/Test
         run: |
           cd HW3/Q1
-          #make for 
-          #make while
           make test
+  Q2: 
+    name: Build/test Q2
+    strategy:
+      matrix:
+        os: [ubuntu-22.04]
+      runs-on: ${{ matrix.os }}
+      defaults:
+        run:
+          shell: bash
+    steps: 
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with: 
+          submodules: 'recursive'
+      - name: Install dependencies (Linux only)
+        if: ${{ runner.os == 'Linux' }}   # use these variables to limit a step only on a specific OS
+        run: |
+          sudo apt-get update && sudo apt-get install -y gcc
+      - name: Build/Test
+        run: |
+          cd HW3/Q2
+          make test   
