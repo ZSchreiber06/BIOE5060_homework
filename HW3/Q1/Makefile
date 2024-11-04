@@ -9,4 +9,3 @@ while.txt: while
 test: for.txt while.txt
 	diff for.txt while.txt > diff.txt
 	[ -s diff.txt ] && false || true
-
