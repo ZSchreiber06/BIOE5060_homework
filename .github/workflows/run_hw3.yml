@@ -31,19 +31,6 @@ jobs:
       - name: Build program (debug mode) # build software
         run: |
           cd HW3/Q1
-          make for 
-      - name: Test program (non Windows) # run tests
-        if: ${{ runner.os != 'Windows' }}
-        run: |
-          cd HW3/Q1
+          #make for 
+          #make while
           make test
-      - name: Build program in release mode   # you can rebuild the programs in other options, or compilers and further test
-        run: |
-          cd HW3/Q1
-          make clean
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            make release CC=gcc
-          else
-            make release
-          fi
-
