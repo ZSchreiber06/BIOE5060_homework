@@ -77,4 +77,4 @@ for(t = 0; t < 2; t++){
   free(field[t]);
 }
 }
-gcc laplace2d_func.c -o laplace2d_func -g -Wall -pedantic
+gcc laplace2d_func.c -o laplace2d_func.c -g -Wall -pedantic

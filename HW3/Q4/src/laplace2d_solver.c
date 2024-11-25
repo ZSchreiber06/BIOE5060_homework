@@ -7,4 +7,4 @@ init_domain(&domain);
 update_domain(&domain);
 free_domain(&domain);
 }
-gcc laplace2d_solver.c -o laplace2d_solver -g -Wall -pedantic
+gcc laplace2d_solver.c -o laplace2d_solver.c -g -Wall -pedantic

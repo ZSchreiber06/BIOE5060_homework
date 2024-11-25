@@ -17,4 +17,4 @@ void init_domain(grid *grid2d);
 void update_domain(grid *grid2d);
 void free_domain(grid *grid2d);
 #endif
-gcc laplace2d_func.h -o laplace2d_func -g -Wall -pedantic
+gcc laplace2d_func.h -o laplace2d_func.h -g -Wall -pedantic
