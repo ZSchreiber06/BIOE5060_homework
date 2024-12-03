@@ -39,8 +39,9 @@ jobs:
           fi
       - name: Run octave test
         run: |
-          octave-cli --eval runtestQ1
-          octave-cli --eval runtestQ2
+          octave-cli --version
+          octave-cli --eval "addpath(pwd);cd HW4;cd Q1_Q2; runtestQ1"
+          octave-cli --eval "addpath(pwd);cd HW4;cd Q1_Q2; runtestQ2"
 
   matlab_test:
     name: MATLAB test
