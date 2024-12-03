@@ -1,10 +1,18 @@
-name: HW4
+name: test_all_units
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - branch1
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - branch1
 
 jobs:
   Q1:
-    name: Octave tests Q1
+    name: Octave tests 
     strategy:
       matrix:
         os: [ubuntu-20.04, ubuntu-22.04, macos-13, windows-2019]
@@ -31,9 +39,8 @@ jobs:
           fi
       - name: Run octave test
         run: |
-          octave-cli --version
-          octave-cli --eval "addpath(pwd);cd test;run_jsonlab_test"
-          octave-cli --eval "addpath(pwd);cd examples; demo_jsonlab_basic; jsonlab_selftest"
+          octave-cli --eval runtestQ1
+          octave-cli --eval runtestQ2
 
   matlab_test:
     name: MATLAB test
@@ -50,11 +57,11 @@ jobs:
         uses: matlab-actions/setup-matlab@v1
         with:
           release: R2022a
-      - name: Run MATLAB test
+      - name: Run MATLAB test 1
+        uses: matlab-actions/run-command@v1 
+        with:
+          command: addpath(pwd);cd HW4;cd Q1_Q2; runtestQ1
+      - name: Run MATLAB test 2
         uses: matlab-actions/run-command@v1
         with:
-          command: addpath(pwd);cd test;run_jsonlab_test
-      - name: Run MATLAB examples
-        uses: matlab-actions/run-command@v1
-        with:
-          command: addpath(pwd);cd examples; demo_jsonlab_basic; jsonlab_selftest
+          command: addpath(pwd);cd HW4;cd Q1_Q2; runtestQ2
