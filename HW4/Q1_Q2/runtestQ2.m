@@ -42,7 +42,7 @@ end
 test3=(magic(10)>20);
 expectedtest3_1 = [0 0 0 0 0 0 0 1 1 1;0 0 0 0 0 0 0 1 1 1;0 0 0 0 0 0 1 1 1 1;0 0 0 0 0 0 0 1 1 1;0 0 0 0 0 0 0 1 1 1;0 0 0 0 0 0 1 1 1 1;0 0 0 0 0 1 1 1 1 1;0 0 0 0 0 1 1 1 1 1;0 0 0 0 1 1 1 1 1 1;0 0 0 0 1 1 1 1 1 1];
 
-bwimg = BlackWhite2D(test3, logical([0 1 0; 1 1 1; 0 1 1]));
+bwimg = BlackWhite2D(test3, logical([0 1 0; 1 1 1; 0 1 0]));
 
 if(any(any(bwimg.shrink(2) ~= expectedtest3_1)))
     error('logical magic matrix test failed')
