@@ -46,10 +46,10 @@ classdef BlackWhite2D
         for iter = 1:iternum
             field0 = conv2(ivert_image0, self.mask, "same");
             logic_field = logical(field0);
-            invert_image = logic_field;
+            invert_image0 = logic_field;
             output = ~logic_field;
         end 
       end
-      
+
     end 
 end
