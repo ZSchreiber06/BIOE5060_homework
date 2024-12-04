@@ -33,8 +33,8 @@ classdef BlackWhite2D
             self.image0 = logic_field;
             output = logic_field;
         end
+        
       end 
-
       function output = shrink(self, iternum, mask_int)
         if (nargin < 2)
             iternum = 1;
@@ -42,14 +42,15 @@ classdef BlackWhite2D
         if (nargin > 2)
             self.mask = mask_int;
         end 
-        ivert_image0 = ~self.image0;
-        for iter = 1:iternum
-            field0 = conv2(ivert_image0, self.mask, "same");
-            logic_field = logical(field0);
-            invert_image0 = logic_field;
-            output = ~logic_field;
-        end 
+        invert_image0 = ~self.image0;
+          for iter = 1:iternum
+             field0 = conv2(invert_image0, self.mask, "same");
+             logic_field = logical(field0);
+             invert_image0 = logic_field;
+             output = ~logic_field;
+          end
+            
       end
-
+  
     end 
 end
