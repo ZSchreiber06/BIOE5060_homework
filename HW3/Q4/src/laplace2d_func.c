@@ -1,55 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include "laplace2d_func.h"
-//#include "laplace2d_solver.c"
-
+#include "laplace2d_func.h"
 #define ABS(x) (((x)>0)?(x):-(x))
 
-int main(int argc, char *argv[]){
-  double **field[2] = {NULL, NULL};
-  double delta = 1e10, tol = 1e-4;
-  int t, tk0, tk1, x, y, Nx = 0, Ny = 0, counter = 0;
-  FILE *foutput;
-
-
-//Read Command Parameters
+void get_input(grid *grid2d, int argc, char **argv){
  if (argc < 3){
   printf("Array format: cmd Nx Ny\n");
   return 0;
  }
-sscanf(argv[1], "%d", &Nx);
-sscanf(argv[2], "%d", &Ny);
-sscanf(argv[3], "%lf", &tol);
+sscanf(argv[1], "%d", &grid2d->Nx);
+sscanf(argv[2], "%d", &grid2d->Ny);
+sscanf(argv[3], "%lf", &grid2d->tol);
 
-printf("Nx=%d,Ny=%d,tol=%lf\n", Nx, Ny,tol);
+printf("Nx=%d,Ny=%d,tol=%lf\n", &grid2d->Nx, &grid2d->Ny, &grid2d->tol);
+  // use grid2d->Nx to replace Nx and other 5 
+}
 
-// Allocate 3D array
-for(t = 0; t < 2; t++){
-  field[t] = (double **)malloc(Nx*sizeof(double *));
 
-  for(x = 0; x < Nx; x++){
-    field[t][x] = (double *)calloc(Ny, sizeof(double));
-  }
+// dynamically allocate the 3D buffer, grid2d->field
+// see how this is done in Unit 2-3’s notebook
+void init_domain(grid *grid2d){
+for(t = 0; t < 2; t++) {
+    grid2d->field[t] = (double **)malloc(grid2d->Nx*sizeof(double *));
 
-  for(y = 0; y < Ny; y ++){
-    field[t][0][y] = 1.0;
+    for(x = 0; x < grid2d->Nx; x++) {
+      grid2d->field[t][x] = (double *)calloc(grid2d->Ny, sizeof(double)); 
+    }
+    for(y = 0; y< grid2d->Ny; y++) {
+      grid2d->field[t][0][y]=1.0;
+    }
   }
 }
 
-printf("Initialize\n");
-
-// Run until delta is lower than tol
+// perform the time stepping, i.e. the while-loop in the notebook
+void update_domain(grid *grid2d){
 counter = 0;
 while(delta > tol){
   delta = 0.0;
   tk0 = (counter % 2);
   tk1 =! (counter % 2);
 
-  for(x = 1; x < Nx - 1; x++){
-    for(y = 1; y < Ny - 1; y++){
-      field[tk1][x][y] = (field[tk0][x - 1][y] + field[tk0][x + 1][y] + field[tk0][x][y - 1] + field[tk0][x][y + 1])*0.25;
-      delta += ABS(field[tk1][x][y] - field[tk0][x][y]);
+  for(x = 1; x < grid2d->Nx - 1; x++){
+    for(y = 1; y < grid2d->Ny - 1; y++){
+      grid2d->field[tk1][x][y] = (grid2d->field[tk0][x - 1][y] + grid2d->field[tk0][x + 1][y] + grid2d->field[tk0][x][y - 1] + grid2d->field[tk0][x][y + 1])*0.25;
+      delta += ABS(grid2d->field[tk1][x][y] - grid2d->field[tk0][x][y]);
     }
   }
   if(!((counter++) % 2)){
@@ -59,22 +54,16 @@ while(delta > tol){
 
 printf("Simulation Complete\n");
 
-foutput = fopen("laplaceoutput.txt", "wt");
-for(x = 0; x < Nx; x++){
-  for(y = 0; y < Ny; y++){
-    fprintf(foutput, "%e\t", field[tk1][x][y]);
+}
+// deallocate the buffer at the end
+void free_domain(grid *grid2d){
+  // free the dynamic 2D array
+  for(t = 0; t < 2; t++) {
+    for(x = 0; x< Nx; x++) {
+      free(field[t][x]);
+    }
+    free(field[t]);
   }
-  fprintf(foutput, "\n");
-}
-fclose(foutput);
 
-printf("File Saved\n");
+}
 
-for(t = 0; t < 2; t++){
-  for(x = 0; x < Nx; x++){
-    free(field[t][x]);
-  }
-  free(field[t]);
-}
-}
-gcc laplace2d_func.c -o laplace2d_func.c -g -Wall -pedantic
