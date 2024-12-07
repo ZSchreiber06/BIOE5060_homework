@@ -9,12 +9,12 @@ void get_input(grid *grid2d, int argc, char **argv){
   printf("Array format: cmd Nx Ny\n");
   return 0;
  }
- 
-sscanf(argv[1], "%d", &grid2d->Nx);
-sscanf(argv[2], "%d", &grid2d->Ny);
-sscanf(argv[3], "%lf", &grid2d->tol);
+int t, tk0, tk1, x, y, Nx, Ny, counter = 0;
+sscanf(argv[1], "%d", grid2d->Nx);
+sscanf(argv[2], "%d", grid2d->Ny);
+sscanf(argv[3], "%lf", grid2d->tol);
 
-printf("Nx=%d,Ny=%d,tol=%lf\n", &grid2d->Nx, &grid2d->Ny, &grid2d->tol);
+printf("Nx=%d,Ny=%d,tol=%lf\n", grid2d->Nx, grid2d->Ny, grid2d->tol);
   // use grid2d->Nx to replace Nx and other 5 
 }
 
