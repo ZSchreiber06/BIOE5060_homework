@@ -9,6 +9,7 @@ void get_input(grid *grid2d, int argc, char **argv){
   printf("Array format: cmd Nx Ny\n");
   return 0;
  }
+ 
 sscanf(argv[1], "%d", &grid2d->Nx);
 sscanf(argv[2], "%d", &grid2d->Ny);
 sscanf(argv[3], "%lf", &grid2d->tol);
@@ -55,14 +56,14 @@ while(delta > tol){
 printf("Simulation Complete\n");
 
 }
+
 // deallocate the buffer at the end
 void free_domain(grid *grid2d){
-  // free the dynamic 2D array
   for(t = 0; t < 2; t++) {
-    for(x = 0; x< Nx; x++) {
-      free(field[t][x]);
+    for(x = 0; x< grid2d->Nx; x++) {
+      free(grid2d->field[t][x]);
     }
-    free(field[t]);
+    free(grid2d->field[t]);
   }
 
 }
