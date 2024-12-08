@@ -3,7 +3,12 @@
 #include <string.h>
 #include "laplace2d_func.h"
 #define ABS(x) (((x)>0)?(x):-(x))
-#define nt t, tk0, tk1, x, y, Nx, Ny, counter = 0;
+
+//Declare variables
+int Nx;
+int Ny;
+double tol;
+double delta;
 
 void get_input(grid *grid2d, int argc, char **argv){
  if (argc < 3){
@@ -16,7 +21,11 @@ sscanf(argv[2], "%d", &Ny);
 sscanf(argv[3], "%lf", &tol);
 
 printf("Nx=%d,Ny=%d,tol=%lf\n", grid2d->Nx, grid2d->Ny, grid2d->tol);
-  // use grid2d->Nx to replace Nx and other 5 
+  // use grid2d->Nx to replace Nx and other 5
+
+grid2d->Nx = Nx;
+grid->Ny = Ny;
+grid2d->tol = tol;
 }
 
 
@@ -38,6 +47,7 @@ for(t = 0; t < 2; t++) {
 // perform the time stepping, i.e. the while-loop in the notebook
 void update_domain(grid *grid2d){
 counter = 0;
+delta = 0.0
 while(delta > tol){
   delta = 0.0;
   tk0 = (counter % 2);
