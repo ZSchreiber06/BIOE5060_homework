@@ -5,6 +5,7 @@
 #define ABS(x) (((x)>0)?(x):-(x))
 
 //Declare variables
+int t;
 int Nx;
 int Ny;
 double tol;
@@ -15,10 +16,10 @@ void get_input(grid *grid2d, int argc, char **argv){
   printf("Array format: cmd Nx Ny\n");
   return 0;
  }
-i
-sscanf(argv[1], "%d", &Nx);
-sscanf(argv[2], "%d", &Ny);
-sscanf(argv[3], "%lf", &tol);
+
+scanf(argv[1], "%d", &Nx);
+scanf(argv[2], "%d", &Ny);
+scanf(argv[3], "%lf", &tol);
 
 printf("Nx=%d,Ny=%d,tol=%lf\n", grid2d->Nx, grid2d->Ny, grid2d->tol);
   // use grid2d->Nx to replace Nx and other 5
