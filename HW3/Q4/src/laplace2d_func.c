@@ -6,8 +6,11 @@
 
 //Declare variables
 int t;
+int x;
+int y;
 int Nx;
 int Ny;
+double counter;
 double tol;
 double delta;
 
@@ -25,7 +28,7 @@ printf("Nx=%d,Ny=%d,tol=%lf\n", grid2d->Nx, grid2d->Ny, grid2d->tol);
   // use grid2d->Nx to replace Nx and other 5
 
 grid2d->Nx = Nx;
-grid->Ny = Ny;
+grid2d->Ny = Ny;
 grid2d->tol = tol;
 }
 
@@ -48,7 +51,7 @@ for(t = 0; t < 2; t++) {
 // perform the time stepping, i.e. the while-loop in the notebook
 void update_domain(grid *grid2d){
 counter = 0;
-delta = 0.0
+delta = 0.0;
 while(delta > tol){
   delta = 0.0;
   tk0 = (counter % 2);
