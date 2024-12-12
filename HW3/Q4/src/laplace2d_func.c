@@ -5,6 +5,8 @@
 #define ABS(x) (((x)>0)?(x):-(x))
 
 //Declare variables
+int tk0;
+int tk1;
 int t;
 int x;
 int y;
