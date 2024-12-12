@@ -12,7 +12,7 @@ int x;
 int y;
 int Nx;
 int Ny;
-double counter;
+int counter;
 double tol;
 double delta;
 
