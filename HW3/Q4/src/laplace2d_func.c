@@ -16,7 +16,7 @@ int counter;
 double tol;
 double delta;
 
-void get_input(grid *grid2d, int argc, char **argv){
+int get_input(grid *grid2d, int argc, char **argv){
  if (argc < 3){
   printf("Array format: cmd Nx Ny\n");
   return 0;
