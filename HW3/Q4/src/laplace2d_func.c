@@ -19,7 +19,7 @@ double delta;
 void get_input(grid *grid2d, int argc, char **argv){
  if (argc < 3){
   printf("Array format: cmd Nx Ny\n");
-  return 0;
+  return;
  }
 
 scanf(argv[1], "%d", &Nx);
